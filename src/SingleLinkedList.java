@@ -28,11 +28,14 @@ public class SingleLinkedList<T> implements List<T> {
         this.head = null;
     }
 
+
+    //size() Time Complexity = O(1)
     @Override
     public int size() {
         return this.size;
     }
 
+    //Time Complexity = Best Case = O(1) Worst Case = O(n)
     @Override
     public boolean add(T element) {
         if (size == 0) {
@@ -51,11 +54,12 @@ public class SingleLinkedList<T> implements List<T> {
         return true;
     }
 
+    //Time Complexity = O(n)
     @Override
-    public void add(int index, T element) {
-        // if (index < 0 || index > size) {
-        //     throw new IndexOutOfBoundsException();
-        // }
+    public void add(int index, T element) throws Exception {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
 
         Node<T> newNode = new Node<>(element);
 
@@ -74,11 +78,12 @@ public class SingleLinkedList<T> implements List<T> {
         size++;
     }
 
+    //Time Complexity = O(n)
     @Override
-    public T get(int index) {
-        // if (index < 0 || index >= size) {
-        //     throw new IndexOutOfBoundsException();
-        // }
+    public T get(int index) throws Exception {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
 
         Node<T> current = head;
         for (int i = 0; i < index; i++) {
@@ -87,11 +92,12 @@ public class SingleLinkedList<T> implements List<T> {
         return current.get();
     }
 
+    //Time Complexity Best Case(index = 0) = O(1) Worst Case(index!=0)= O(n)
     @Override
-    public T remove(int index){
-        // if (index < 0 || index >= size) {
-        //     throw new IndexOutOfBoundsException();
-        // }
+    public T remove(int index) throws Exception {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
 
         T removedData;
 

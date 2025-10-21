@@ -31,9 +31,8 @@ public class MassiveMotion extends JPanel implements ActionListener {
         Properties props = new Properties();
         try (FileReader reader = new FileReader(propfile)) { 
             props.load(reader);
-            System.out.println("test? loading from " + propfile);
         } catch (IOException e) {
-            System.out.println("error reading file " + propfile);
+            System.out.println("Error from reading file " + propfile);
         }
 
         timerDelay = Integer.parseInt(props.getProperty("timer_delay"));
@@ -90,8 +89,14 @@ public class MassiveMotion extends JPanel implements ActionListener {
 
         //Using a standard for-loop, draw all celestial bodies in the bodies list
         for (int i = 0; i<bodies.size(); i++) {
-            CelestialBody body = bodies.get(i);
-            body.drawMe(g);
+            CelestialBody body;
+            try {
+                body = bodies.get(i);
+                body.drawMe(g);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
         }
     }
 
@@ -110,18 +115,31 @@ public class MassiveMotion extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent actionEvent) {
         //Move all of the celestial bodies. Use a standard for-loop
         for (int i = 0; i<bodies.size(); i++) {
-            CelestialBody body = bodies.get(i);
-            body.update(); //this abstract method will call upon the move() method
+            CelestialBody body;
+            try {
+                body = bodies.get(i);
+                body.update(); //this abstract method will call upon the move() method
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
         }
 
         //If a comet moves off screen, remove it from the list
         //Use a helper boolean method within the CelestialBody class
         for (int i = 0; i<bodies.size(); i++) {
-            CelestialBody body = (CelestialBody) bodies.get(i);
-            if(body.isOutOfBounds(windowX, windowY)) {
-                bodies.remove(i);
-                i--;
+            CelestialBody body;
+            try {
+                body = (CelestialBody) bodies.get(i);
+                if(body.isOutOfBounds(windowX, windowY)) {
+                    bodies.remove(i);
+                    i--;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+            
+            
         }
         
         //gen_x percent chance of comet moving left or right
@@ -154,15 +172,12 @@ public class MassiveMotion extends JPanel implements ActionListener {
         boolean fromTop = Math.random() < 0.5;
         int x = (int)(Math.random() * windowX);
         int y = fromTop ? 0 : windowY;
-        System.out.println("x pos = " + x + "\ty pos = " + y);
         int vx = randomVelocity(bodyVelo);
         int vy = fromTop ? Math.abs(randomVelocity(bodyVelo)) : -Math.abs(randomVelocity(bodyVelo));
 
         bodies.add( new Comet (x, y, vx, vy, bodySize, Color.WHITE));
 
     }
-
-
 
     /*
      * Helper Method: fromLeftOrRight()
@@ -183,7 +198,6 @@ public class MassiveMotion extends JPanel implements ActionListener {
         boolean fromLeft = Math.random() < 0.5;
         int y = (int) (Math.random() * windowY);
         int x = fromLeft ? 0: windowX;
-        System.out.println("x pos = " + x + "\ty pos = " + y);
         int vx = fromLeft ? Math.abs(randomVelocity(bodyVelo)) : -Math.abs(randomVelocity(bodyVelo));
         int vy = randomVelocity(bodyVelo);
 
@@ -213,7 +227,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
     public static void main(String[] args) {
         System.out.println("Massive Motion starting...");
         // MassiveMotion mm = new MassiveMotion(args[0]);
-        MassiveMotion mm = new MassiveMotion("MassiveMotion.txt");
+        MassiveMotion mm = new MassiveMotion("..\\MassiveMotion.txt");
 
         JFrame jf = new JFrame();
         jf.setTitle("Massive Motion");

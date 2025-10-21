@@ -4,6 +4,11 @@ CS 245 Project 02 Massive Motion
 Andrew Cobar
 Github @andrewbcobar
 
+
+Implementation Video: Youtube Video Link Below:
+https://www.youtube.com/watch?v=QVUFaiRpwoc
+
+
 LIST INTERFACE - 
   ArrayList.java
     + ArrayList()

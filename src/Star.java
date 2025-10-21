@@ -7,6 +7,7 @@ public class Star extends CelestialBody {
         super(x, y, xVelo, yVelo, size, color);
     }
 
+    //Method to be called in actionPerformed
     public void update() {
         move();
     }

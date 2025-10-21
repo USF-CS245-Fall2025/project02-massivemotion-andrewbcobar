@@ -8,6 +8,7 @@ public class Comet extends CelestialBody {
         super(x, y, vx, vy, size, color);
     }
 
+    //Method to be called in actionPerformed
     @Override
     public void update() {
         move();
