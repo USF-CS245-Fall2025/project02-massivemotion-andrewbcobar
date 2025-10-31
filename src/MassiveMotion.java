@@ -226,8 +226,8 @@ public class MassiveMotion extends JPanel implements ActionListener {
 
     public static void main(String[] args) {
         System.out.println("Massive Motion starting...");
-        // MassiveMotion mm = new MassiveMotion(args[0]);
-        MassiveMotion mm = new MassiveMotion("..\\MassiveMotion.txt");
+        MassiveMotion mm = new MassiveMotion(args[0]);
+        // MassiveMotion mm = new MassiveMotion("..\\MassiveMotion.txt");
 
         JFrame jf = new JFrame();
         jf.setTitle("Massive Motion");
