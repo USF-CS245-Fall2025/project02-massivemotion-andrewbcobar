@@ -64,10 +64,9 @@ public class MassiveMotion extends JPanel implements ActionListener {
             bodies = new DummyHeadLinkedList<CelestialBody>();
         }
 
-        //Create a CelestialBody of type Star using all of the values read from property file, and add to the list
-        Star star = new Star(starPosX, starPosY, starVeloX, starVeloY, starSize, Color.RED);
+        //Create a CelestialBody - this object will be the center star with a velocity of 0 and color of red
+        CelestialBody star = new CelestialBody(starPosX, starPosY, starVeloX, starVeloY, starSize, Color.RED);
         bodies.add(star);
-
 
         //Instantiate timer using timerDelay and start it for animations
         tm = new Timer(timerDelay, this);
@@ -105,6 +104,8 @@ public class MassiveMotion extends JPanel implements ActionListener {
      * actionPerformed()
      *      updates based on timerDelay
      *      this methods will call update() of the CelestialBody class
+     *      using a for-loop, moves all of the celestial bodies in the bodies list  
+     *      if 
      *      removes any comets that move offscreen
      *      using the property values of gen_x and gen_y, adds comets that...
      *          spawn in a random location off screen
@@ -118,7 +119,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
             CelestialBody body;
             try {
                 body = bodies.get(i);
-                body.update(); //this abstract method will call upon the move() method
+                body.move(); //this abstract method will call upon the move() method
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -175,7 +176,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
         int vx = randomVelocity(bodyVelo);
         int vy = fromTop ? Math.abs(randomVelocity(bodyVelo)) : -Math.abs(randomVelocity(bodyVelo));
 
-        bodies.add( new Comet (x, y, vx, vy, bodySize, Color.WHITE));
+        bodies.add( new CelestialBody(x, y, vx, vy, bodySize, Color.WHITE));
 
     }
 
@@ -201,7 +202,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
         int vx = fromLeft ? Math.abs(randomVelocity(bodyVelo)) : -Math.abs(randomVelocity(bodyVelo));
         int vy = randomVelocity(bodyVelo);
 
-        bodies.add( new Comet(x, y, vx, vy, bodySize, Color.WHITE));
+        bodies.add( new CelestialBody(x, y, vx, vy, bodySize, Color.WHITE));
     }
     
 
@@ -226,8 +227,8 @@ public class MassiveMotion extends JPanel implements ActionListener {
 
     public static void main(String[] args) {
         System.out.println("Massive Motion starting...");
-        MassiveMotion mm = new MassiveMotion(args[0]);
-        // MassiveMotion mm = new MassiveMotion("..\\MassiveMotion.txt");
+        //MassiveMotion mm = new MassiveMotion(args[0]);
+        MassiveMotion mm = new MassiveMotion("..\\MassiveMotion.txt");
 
         JFrame jf = new JFrame();
         jf.setTitle("Massive Motion");

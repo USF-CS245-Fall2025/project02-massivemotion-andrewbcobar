@@ -9,18 +9,6 @@ public class DummyHeadLinkedList<T> implements List<T> {
             this.data = data;
             this.next = null;
         }
-
-        private T get() {
-            return data;
-        }
-
-        private Node<T> getNext() {
-            return next;
-        }
-
-        private void setNext(Node<T> node) {
-            this.next = node;
-        }
     }
 
     private Node<T> head; // dummy head node
@@ -82,18 +70,18 @@ public class DummyHeadLinkedList<T> implements List<T> {
 
         // Move to node before insertion point
         for (int i = 0; i < index; i++) {
-            prev = prev.getNext();
+            prev = prev.next;
         }
 
-        newNode.setNext(prev.getNext());
-        prev.setNext(newNode);
+        newNode.next = prev.next;
+        prev.next = newNode;
         size++;
     }
 
     /*
      * Time Complexity = O(n)
-     * iterate through and find the index by calling .getNext()
-     * account for head being null (current = head.getNext())
+     * iterate through and find the index by calling current.next
+     * account for head being null (current = head.next)
      * return value given at that node
      */
     @Override
@@ -102,19 +90,19 @@ public class DummyHeadLinkedList<T> implements List<T> {
             throw new Exception("Index out of bounds");
         }
 
-        Node<T> current = head.getNext(); // skip dummy
+        Node<T> current = head.next; // skip dummy
         for (int i = 0; i < index; i++) {
-            current = current.getNext();
+            current = current.next;
         }
 
-        return current.get();
+        return current.data;
     }
 
     /*
      * Time Complexity = O(n)
-     * iterate through and index the index by calling .getNext()
+     * iterate through and index the index by calling current.next
      * return value of Node at given index
-     * remove by setting prev.setNext(current.current)
+     * remove by setting prev.next to current.next
      *      - advantage of using DLList Logic
      * decrement size
      */
@@ -128,12 +116,12 @@ public class DummyHeadLinkedList<T> implements List<T> {
 
         // Move to node before the one to remove
         for (int i = 0; i < index; i++) {
-            prev = prev.getNext();
+            prev = prev.next;
         }
 
-        Node<T> current = prev.getNext();
-        prev.setNext(current.getNext());
+        Node<T> current = prev.next;
+        prev.next = current.next;
         size--;
-        return current.get();
+        return current.data;
     }
 }

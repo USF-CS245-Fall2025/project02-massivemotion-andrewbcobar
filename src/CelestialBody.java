@@ -1,6 +1,6 @@
 import java.awt.*;
 
-public abstract class CelestialBody {
+public class CelestialBody {
     private int x, y;
     private int xVelo, yVelo;
     private int size;
@@ -32,6 +32,6 @@ public abstract class CelestialBody {
         return (x < -size || x > width + size || y < -size || y > height + size);
     }
 
-    //Will call move() in sub-classes
-    public abstract void update();
+    // //Will call move() in sub-classes
+    // public abstract void update();
 }

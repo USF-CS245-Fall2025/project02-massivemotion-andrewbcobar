@@ -9,25 +9,6 @@ public class DoubleLinkedList<T> implements List<T>{
             next = null; prev = null;
         }
 
-        public T get() {
-            return data;
-        }
-
-        public Node<T> getNext() {
-            return next;
-        }
-
-        public Node<T> getPrev() {
-            return prev;
-        }
-
-        public void setNext(Node<T> node) {
-            this.next = node;
-        }
-
-        public void setPrev(Node<T> node) {
-            this.prev = node;
-        }
     }
 
     private int size;
@@ -41,10 +22,10 @@ public class DoubleLinkedList<T> implements List<T>{
         this.size = 0;
         head = new Node<T>(null);
         tail = new Node<T>(null);
-        head.setNext(tail);
-        tail.setPrev(head);
-        head.setPrev(null);
-        tail.setNext(null);
+        head.next = tail;
+        tail.prev = head;
+        head.prev = null;
+        tail.next = null;
     }
 
     /*
@@ -57,27 +38,19 @@ public class DoubleLinkedList<T> implements List<T>{
     }
 
     /*
-     * Time Complexity = O(n)
-     * iterate through and find the tail
-     * attach to the end of list and change previous and next noeds
+     * Time Complexity = O(1)
+     * attach to the end of list and change previous and next nodes
      * increment size
      */
     @Override
     public boolean add(T element) {
         Node<T> newNode = new Node<T>(element);
-        Node<T> current = head;
 
-        for (int i = 0; i<size+1; i++) {
-            if (current.getNext().equals(tail)) {
-                current.setNext(newNode);
-                newNode.setPrev(current);
-                newNode.setNext(tail);
-                tail.setPrev(newNode);
-            }
-
-            current = current.getNext();
-        }
-
+        Node<T> beforeTail = tail.prev;
+        beforeTail.next = newNode;
+        newNode.prev = beforeTail;
+        newNode.next = tail;
+        tail.prev = newNode;
         size++;
         return true;
 
@@ -85,8 +58,8 @@ public class DoubleLinkedList<T> implements List<T>{
 
     /*
      * Time Complexity = O(n)
-     * iterate through and find the index using getNext() an index amount of times
-     * attach to the end of list and change previous and next noeds
+     * iterate through and find the index by calling current.next
+     * attach to list by changing previous and next nodes
      * increment size
      */
     @Override
@@ -97,45 +70,45 @@ public class DoubleLinkedList<T> implements List<T>{
         Node<T> newNode = new Node<T>(element);
         Node<T> current = head;
         for (int i = 0; i < index; i++) {
-            current = current.getNext();
+            current = current.next;
         }
 
         // current points to node BEFORE where we insert
-        Node<T> nextNode = current.getNext();
+        Node<T> nextNode = current.next;
 
-        current.setNext(newNode);
-        newNode.setPrev(current);
-        newNode.setNext(nextNode);
-        nextNode.setPrev(newNode);
+        current.next = newNode;
+        newNode.prev = current;
+        newNode.next = nextNode;
+        nextNode.prev = newNode;
 
         size++;
-
     }
 
     /*
-     * Time Complexity = O(n)
-     * iterate through and find the index by calling .getNext()
+     * 
+     * iterate through and find the index by calling current.next
      * return value given at that node
+     * Time Complexity = O(n)
      */
     @Override
     public T get(int index) throws Exception  {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
-        Node<T> current = head.getNext();
+        Node<T> current = head.next;
 		
 		for (int i = 0; i<index; i++) {
-            current = current.getNext();
+            current = current.next;
         }
 
-        return current.get();
+        return current.data;
     }
 
     /*
      * Time Complexity = O(n)
-     * iterate through and index the index by calling .getNext()
+     * iterate through and index the index by calling current.next
      * return value of Node at given index
-     * remove by setting previous(before) using .setNext() and next(after) using .setPrev()
+     * remove by setting previous(before) using before.next and next(after) using after.prev
      *      - advantage of using DLList Logic
      * decrement size
      */
@@ -144,20 +117,20 @@ public class DoubleLinkedList<T> implements List<T>{
         if(index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
-        Node<T> current = head.getNext();
+        Node<T> current = head.next;
 		
 		for (int i = 0; i < size; i++){
 			if (i == index){
-				Node<T> before = current.getPrev();
-				Node<T> after = current.getNext();
+				Node<T> before = current.prev;
+				Node<T> after = current.next;
 				
-				before.setNext(after);
-				after.setPrev(before);
+				before.next = after;
+				after.prev = before;
 				size--;
-				return current.get();
+				return current.data;
 			}
 		
-			current = current.getNext();
+			current = current.next;
 		}
         size--;
 		return null;
