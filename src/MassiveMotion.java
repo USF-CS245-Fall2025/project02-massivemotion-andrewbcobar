@@ -22,11 +22,11 @@ public class MassiveMotion extends JPanel implements ActionListener {
     private double genX, genY;
     private int bodySize, bodyVelo;
 
-    /*
-     * Constructor MassiveMotion() 
-     *      call in main method with the txt file read in from command line
-     *      using java.util.Properties, read file and instantiate instance variables
-     */
+    /**
+      * Constructor MassiveMotion() 
+      *      call in main method with the txt file read in from command line
+      *      using java.util.Properties, read file and instantiate instance variables
+    */
     public MassiveMotion(String propfile) {
         Properties props = new Properties();
         try (FileReader reader = new FileReader(propfile)) { 
@@ -73,11 +73,11 @@ public class MassiveMotion extends JPanel implements ActionListener {
         tm.start();
     }
 
-    /*
-     *  paintComonent()
-     *      using a for-loop, draw all of the celestial objects within bodies list
-     *      bodies.get(0) is the center star
-     */
+    /**
+      *  paintComonent()
+      *      using a for-loop, draw all of the celestial objects within bodies list
+      *      bodies.get(0) is the center star
+    */
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // Probably best you leave this as is.
 
@@ -100,17 +100,17 @@ public class MassiveMotion extends JPanel implements ActionListener {
     }
 
 
-    /*
-     * actionPerformed()
-     *      updates based on timerDelay
-     *      this methods will call update() of the CelestialBody class
-     *      using a for-loop, moves all of the celestial bodies in the bodies list  
-     *      if 
-     *      removes any comets that move offscreen
-     *      using the property values of gen_x and gen_y, adds comets that...
-     *          spawn in a random location off screen
-     *          moves in a random direction
-     *      call repaint() to continuously update the screen
+    /**
+      * actionPerformed()
+      *      updates based on timerDelay
+      *      this methods will call update() of the CelestialBody class
+      *      using a for-loop, moves all of the celestial bodies in the bodies list  
+      *      if 
+      *      removes any comets that move offscreen
+      *      using the property values of gen_x and gen_y, adds comets that...
+      *          spawn in a random location off screen
+      *          moves in a random direction
+      *      call repaint() to continuously update the screen
      */
     @Override
     public void actionPerformed(ActionEvent actionEvent) {
@@ -154,9 +154,9 @@ public class MassiveMotion extends JPanel implements ActionListener {
     }
 
 
-    /*
-     * Helper Method: fromTopOrBottom()
-        *  this private method is called in actionPerformed every second
+    /**
+      * Helper Method: fromTopOrBottom()
+    *  this private method is called in actionPerformed every second
         *  boolean fromTop is 50% true or false by using the Math.random()
         *  position variables x and y are used
         *  x is a random value from 0 to the height of the window
@@ -180,20 +180,20 @@ public class MassiveMotion extends JPanel implements ActionListener {
 
     }
 
-    /*
-     * Helper Method: fromLeftOrRight()
-        *  this private method is called in actionPerformed every second
-        *  boolean fromLeft is 50% true or false by using the Math.random()
-        *  position variables x and y are used
-        *  y is a random value from 0 to the height of the window
-        *  the value of x depends on the fromLeft random boolean.
-        *      if true, x = 0 (Left)
-        *      if false, x = width of the window
-        *  vx and vy are the random velocity values using helper method random velocity
-        *  horizontal velocity is dependent on if fromLeft is true or false
-        *      if true, comet is moving right (x+=xv)
-        *      if false, comet is moving left (x-=xv)
-        * using the x and y position, the horizontal and vertical velocity, add a new comet to the list of celestial bodies
+    /**
+      * Helper Method: fromLeftOrRight()
+      *  this private method is called in actionPerformed every second
+      *  boolean fromLeft is 50% true or false by using the Math.random()
+      *  position variables x and y are used
+      *  y is a random value from 0 to the height of the window
+      *  the value of x depends on the fromLeft random boolean.
+      *      if true, x = 0 (Left)
+      *      if false, x = width of the window
+      *  vx and vy are the random velocity values using helper method random velocity
+      *  horizontal velocity is dependent on if fromLeft is true or false
+      *      if true, comet is moving right (x+=xv)
+      *      if false, comet is moving left (x-=xv)
+      * using the x and y position, the horizontal and vertical velocity, add a new comet to the list of celestial bodies
      */
     private void fromLeftOrRight() {
         boolean fromLeft = Math.random() < 0.5;
@@ -206,12 +206,12 @@ public class MassiveMotion extends JPanel implements ActionListener {
     }
     
 
-    /*
-     * Helper Method randomVelocity()
-        *  Takes a velocity range of v 
-        *      i.e. 3
-        *  returns a random value between v and -v that is not 0
-        *  
+    /**
+      * Helper Method randomVelocity()
+      *  Takes a velocity range of v 
+      *      i.e. 3
+      *  returns a random value between v and -v that is not 0
+      *  
      */
     private int randomVelocity(int v) {
         int random = 0; //return value

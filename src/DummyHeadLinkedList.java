@@ -14,29 +14,29 @@ public class DummyHeadLinkedList<T> implements List<T> {
     private Node<T> head; // dummy head node
     private int size;
 
-    /*
-     * Constructor creates DoubleLinkedList object
-     * using dummy head logic, set head and tail to null
+    /**
+      * Constructor creates DoubleLinkedList object
+      * using dummy head logic, set head and tail to null
     */
     public DummyHeadLinkedList() {
         head = new Node<>(null); // dummy head node
         size = 0;
     }
 
-    /*
-     * Time Complexity = O(1)
-     * returns size of DoubleLinkedList
-     */
+    /**
+      * Time Complexity = O(1)
+      * returns size of DoubleLinkedList
+    */
     @Override
     public int size() {
         return size;
     }
 
-    /*
-     * Time Complexity = O(n)
-     * iterate through and find the tail
-     * attach to the end of list and change previous and next noeds
-     * increment size
+    /**
+      * Time Complexity = O(n)
+      * iterate through and find the tail
+      * attach to the end of list and change previous and next noeds
+      * increment size
      */
     @Override
     public boolean add(T element) {
@@ -53,11 +53,11 @@ public class DummyHeadLinkedList<T> implements List<T> {
         return true;
     }
 
-    /*
-     * Time Complexity = O(n)
-     * iterate through and find the index using getNext() an index amount of times
-     * attach to the end of list and change previous and next noeds
-     * increment size
+    /**
+      * Time Complexity = O(n)
+      * iterate through and find the index using getNext() an index amount of times
+      * attach to the end of list and change previous and next noeds
+      * increment size
      */
     @Override
     public void add(int index, T element) throws Exception {
@@ -78,11 +78,11 @@ public class DummyHeadLinkedList<T> implements List<T> {
         size++;
     }
 
-    /*
-     * Time Complexity = O(n)
-     * iterate through and find the index by calling current.next
-     * account for head being null (current = head.next)
-     * return value given at that node
+    /**
+      * Time Complexity = O(n)
+      * iterate through and find the index by calling current.next
+      * account for head being null (current = head.next)
+      * return value given at that node
      */
     @Override
     public T get(int index) throws Exception {
@@ -98,13 +98,13 @@ public class DummyHeadLinkedList<T> implements List<T> {
         return current.data;
     }
 
-    /*
-     * Time Complexity = O(n)
-     * iterate through and index the index by calling current.next
-     * return value of Node at given index
-     * remove by setting prev.next to current.next
-     *      - advantage of using DLList Logic
-     * decrement size
+    /**
+      * Time Complexity = O(n)
+      * iterate through and index the index by calling current.next
+      * return value of Node at given index
+      * remove by setting prev.next to current.next
+      *      - advantage of using DLList Logic
+      * decrement size
      */
     @Override
     public T remove(int index) throws Exception {
